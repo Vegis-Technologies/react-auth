@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 interface Order{
     id: string,
     customer: string,
@@ -35,18 +35,25 @@ const order: Order[] = [
     total: "$75.20",
     status: "Processing",
   },
+  {
+    id: "ORD-1004",
+    customer: "Katherine Johnson",
+    date: "2026-08-01",
+    total: "$75.20",
+    status: "Processing",
+  },
 ];
 
     interface orderContext{
-        isOrdered: boolean,
-        setIsOrdered: (isOrdered: boolean) => void,
+        isOrdered: Order[],
+        setIsOrdered: (isOrdered: Order[]) => void,
         order: Order[]
     }
 
     export const OrderContext = createContext<orderContext | null>(null)
 
     export const OrderProvider = ({children}: {children: React.ReactNode}) => {
-        const [isOrdered, setIsOrdered] = useState(false)
+        const [isOrdered, setIsOrdered] = useState<Order[]>(order)
         return(
             <OrderContext.Provider
             value={{
