@@ -6,6 +6,7 @@
 2. Create a context for orders
 3. Wrap `OrdersContext` over the `BrowserRouter`
 4. Get the list of orders from the context in the orders page
+5. Push your branch to GitHub
 
 ## Steps
 
@@ -48,9 +49,18 @@ In `src/pages/(protected)/orders.tsx`:
 - Call `useOrdersContext()` and read the orders list from context
 - Render the table from that list
 
+### 5. Push branch to GitHub
+
+```bash
+git add .
+git commit -m "feat: add orders context"
+git push -u origin HEAD
+```
+
 ## Done when
 
 - [ ] Branch named `username-*`
 - [ ] `OrdersProvider` + `useOrdersContext` exist
 - [ ] Provider wraps `BrowserRouter` in `App.tsx`
 - [ ] Orders page reads orders from context (no local sample array)
+- [ ] Branch is live on remote
