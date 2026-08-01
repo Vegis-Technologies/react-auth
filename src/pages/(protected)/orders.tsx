@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import AccessDenied from "../../components/access-denied";
 import { useAuthContext } from "../../contexts/auth";
+import { useOrdersContext } from "../../contexts/orders";
 
 const orders = [
   {
@@ -43,6 +44,7 @@ const statusClass: Record<string, string> = {
 
 const OrdersPage = () => {
   const { isAuthenticated } = useAuthContext();
+  const orders = useOrdersContext();
 
   if (!isAuthenticated) {
     return <AccessDenied />;
