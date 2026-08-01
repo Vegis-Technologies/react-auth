@@ -10,7 +10,7 @@ export interface Orders {
 
 export const OrdersContext = createContext<Orders[] | null>(null)
 
-export const OrdersProvide = ({ children }: { children: React.ReactNode}) => {
+export const OrdersProvider = ({ children }: { children: React.ReactNode}) => {
   
    const [orders] = useState<Orders[]>([
 
@@ -60,7 +60,7 @@ export const OrdersProvide = ({ children }: { children: React.ReactNode}) => {
     export const useOrdersContext = () => {
       const ordersContext = useContext(OrdersContext);
       if (!ordersContext) {
-        throw new Error("Invalid");
+        throw new Error("invalid");
       }
     
       return ordersContext;
