@@ -1,77 +1,93 @@
-# React + TypeScript + Vite
+# React Auth
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tutorial app for learning React authentication patterns with React Router, Context API, and form validation.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19 + TypeScript + Vite
+- React Router for pages
+- Auth context + `localStorage` persistence
+- React Hook Form + Zod for login validation
+- Tailwind CSS for UI
 
-## React Compiler
+## Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Public pages: home, about, login
+- Protected pages: dashboard, orders (show access denied when logged out)
+- Shared `AuthProvider` / `useAuthContext` (see `src/contexts/auth.md`)
+- Login form with email + password validation
 
-Note: This will impact Vite dev & build performances.
+## Routes
 
-## Expanding the ESLint configuration
+| Path | Page |
+|------|------|
+| `/` | Home |
+| `/about` | About |
+| `/auth/login` | Login |
+| `/dashboard` | Dashboard (protected) |
+| `/orders` | Orders table (protected) |
+| `*` | 404 |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Setup
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Requires Node.js 20+.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Or with npm:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm install
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Run
+
+Dev server:
+
+```bash
+pnpm dev
+```
+
+Build for production:
+
+```bash
+pnpm build
+```
+
+Preview production build:
+
+```bash
+pnpm preview
+```
+
+Lint:
+
+```bash
+pnpm lint
+```
+
+Open the URL Vite prints (usually `http://localhost:5173`).
+
+## Project layout
 
 ```
+src/
+  contexts/          # AuthProvider + useAuthContext
+  components/        # Shared UI (e.g. AccessDenied)
+  pages/
+    auth/            # Login
+    (protected)/     # Dashboard, orders
+  schemas/           # Zod schemas
+  App.tsx            # Routes + AuthProvider
+```
+
+## Auth flow (demo)
+
+1. Visit `/dashboard` or `/orders` while logged out → access denied.
+2. Go to `/auth/login`, submit a valid email + password (min 6 chars).
+3. App sets `isAuthenticated` in context and `localStorage`.
+4. Protected pages unlock. Logout clears the flag.
+
+This is a front-end learning demo — no real backend auth yet.
