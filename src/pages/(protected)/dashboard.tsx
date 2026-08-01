@@ -1,9 +1,10 @@
 import { Link } from "react-router";
 import AccessDenied from "../../components/access-denied";
 import { useAuthContext } from "../../contexts/auth";
+import { useAuthStore } from "../../store/auth";
 
 const DashboardPage = () => {
-  const { isAuthenticated, setIsAuthenticated } = useAuthContext();
+  const { isAuthenticated, setIsAuthenticated } = useAuthStore();
 
   if (!isAuthenticated) {
     return <AccessDenied />;
@@ -26,7 +27,7 @@ const DashboardPage = () => {
               className="rounded-md border border-zinc-300 px-3 py-1.5 hover:bg-zinc-100"
               onClick={() => {
                 setIsAuthenticated(false);
-                localStorage.removeItem("isAuthenticated");
+                // localStorage.removeItem("isAuthenticated");
               }}
             >
               Logout

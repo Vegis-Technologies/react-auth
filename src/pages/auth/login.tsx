@@ -3,9 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router";
 import { loginSchema, type LoginFormTypes } from "../../schemas/auth";
 import { useAuthContext } from "../../contexts/auth";
+import { useAuthStore } from "../../store/auth";
 
 const LoginPage = () => {
-  const { setIsAuthenticated } = useAuthContext();
+  const { setIsAuthenticated } = useAuthStore();
   const navigate = useNavigate();
   const {
     register,
